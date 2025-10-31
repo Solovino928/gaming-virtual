@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pago de Tarjeta</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+    button {
+      background-color: #6772e5;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5469d4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pago de Tarjeta</h1>
+  <p>Se cobrará un monto único de <strong>$10 MXN</strong> para procesar el pago.</p>
+  <button id="checkout-button">Pagar ahora</button>
+
+  <script>
+    const stripe = Stripe("pk_test_your_public_key_here"); // Reemplaza con tu clave pública de Stripe
+
+    const checkoutButton = document.getElementById("checkout-button");
+    checkoutButton.addEventListener("click", () => {
+      checkoutButton.disabled = true;
+      stripe.redirectToCheckout({
+        lineItems: [
+          { price: "price_your_price_id_here", quantity: 1 } // Reemplaza con tu ID de precio
+        ],
+        mode: "payment",
+        successUrl: "https://yourdomain.com/success.html",
+        cancelUrl: "https://yourdomain.com/cancel.html",
+      }).then(function(result) {
+        if (result.error) {
+          alert(result.error.message);
+          checkoutButton.disabled = false;
+        }
+      }).catch(function(err) {
+        console.error(err);
+        alert("Error al redirigir a Stripe.");
+        checkoutButton.disabled = false;
+      });
+    });
+  </script>
+</body>
+</html>

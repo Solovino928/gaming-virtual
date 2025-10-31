@@ -1,0 +1,22 @@
+{
+  "name": "stripe-payments-web",
+  "version": "1.0.0",
+  "description": "A web application to accept Stripe payments for a $10 charge.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "stripe": "^8.0.0",
+    "dotenv": "^10.0.0"
+  },
+  "keywords": [
+    "stripe",
+    "payments",
+    "web",
+    "nodejs"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
